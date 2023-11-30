@@ -12,6 +12,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 
 function StackExchangeHome() {
+  
   const fields = [
     "Allergist",
     "Allergy",
@@ -66,9 +67,11 @@ function StackExchangeHome() {
     "Vascular",
   ];
   const { usertype } = useContext(Appcontext);
+  
 
   return (
     <>
+    
       {[false].map((expand) => (
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
           <Container fluid>
@@ -78,17 +81,14 @@ function StackExchangeHome() {
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement="top"
+              style={{ maxHeight: '90px'}}
+              
             >
-              <Offcanvas.Header>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Offcanvas
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
+              <Offcanvas.Body style={{ overflowY: 'hidden' }}>
                 <Form>
                   <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridState">
-                      <Form.Label>State</Form.Label>
+                      <Form.Label>priority1</Form.Label>
                       <Form.Select aria-label="Default select example">
                         {fields.map((element, index) => (
                           <option key={index}>{element}</option>
@@ -96,33 +96,36 @@ function StackExchangeHome() {
                       </Form.Select>
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridState">
-                      <Form.Label>State</Form.Label>
+                      <Form.Label>priority2</Form.Label>
                       <Form.Select aria-label="Default select example">
-                        <option>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {fields.map((element, index) => (
+                          <option key={index}>{element}</option>
+                        ))}
                       </Form.Select>
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridState">
-                      <Form.Label>State</Form.Label>
+                      <Form.Label>priority3</Form.Label>
                       <Form.Select aria-label="Default select example">
-                        <option>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {fields.map((element, index) => (
+                          <option key={index}>{element}</option>
+                        ))}
                       </Form.Select>
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridState">
-                      <Form.Label>State</Form.Label>
+                      <Form.Label>priority4</Form.Label>
                       <Form.Select aria-label="Default select example">
-                        <option>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {fields.map((element, index) => (
+                          <option key={index}>{element}</option>
+                        ))}
                       </Form.Select>
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button
+                      variant="dark"
+                      type="submit"
+                      size="lg"
+                      style={{ margin: "10px" }}
+                      as={Col}
+                    >
                       Submit
                     </Button>
                   </Row>
