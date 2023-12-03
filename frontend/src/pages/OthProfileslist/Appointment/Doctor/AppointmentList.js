@@ -1,8 +1,29 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import ToggleButton from "react-bootstrap/ToggleButton";
+import  { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import { Appcontext } from "../../App";
 
 function ByDoctorid() {
+  const [mydappts, setMydappts] = useState([]);
+  const { doctorId} = useContext(Appcontext);
+
+  useEffect(() => {
+    const fn = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/Appointments/d/${doctorId}`
+        );
+
+        setMydappts(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fn();
+  }, [doctorId]);
   return (
     <>
       <h1

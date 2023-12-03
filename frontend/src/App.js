@@ -15,14 +15,12 @@ import { useGetDoctorId } from "./Iddoctor";
 import { useGetPatientId } from "./Idpatient";
 import { useGetUserType } from "./userType";
 import { useGetUserMail } from "./userMail";
-import ReportandAppointment from "./pages/AppointmentHome";
 
 export const Appcontext = createContext();
 
 function App() {
   const [refqnid, setRefqnid] = useState("refqnId");
   const [refansid, setRefansid] = useState("refansId");
-
 
   let patientId = useGetPatientId();
   let doctorId = useGetDoctorId();
@@ -43,7 +41,6 @@ function App() {
           setRefqnid,
           refansid,
           setRefansid,
-      
         }}
       >
         <BrowserRouter>
@@ -57,7 +54,6 @@ function App() {
             <Route path="/patientProfile" element={<Patientprofile />} />
             <Route path="/doctorProfile" element={<Doctorprofile />} />
             <Route path="/stackExchange" element={<StackExchangeHome />} />
-            <Route path="/test" element={< ReportandAppointment/>} />
           </Routes>
         </BrowserRouter>
       </Appcontext.Provider>

@@ -6,11 +6,12 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
-import Doctors from "./OthProfileslist/DoctorsAll";
-import Doctorsbyexp from "./OthProfileslist/Doctorsbyexperience";
-import Doctorsbyspec from "./OthProfileslist/Doctorsbyspecialisation";
+
+
+
 
 function Appointment() {
+ 
   return (
     <>
       {[false].map((expand) => (
@@ -100,9 +101,6 @@ function Appointment() {
         </Navbar>
       ))}
 
-      <Doctors />
-      <Doctorsbyexp />
-      <Doctorsbyspec />
     </>
   );
 }
