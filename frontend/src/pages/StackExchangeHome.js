@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { useContext } from "react";
 import { Appcontext } from "../App";
 import ReadbyDoctorId from "./Questions/Answers/MydoctorAnsws";
-import ReadbyPatientId from "./Questions/MypatientQns";
+import ReadbyPatientId from "./Questions/MypatientQns"
 import Form from "react-bootstrap/Form";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Col from "react-bootstrap/Col";
@@ -66,7 +66,7 @@ function StackExchangeHome() {
     "Urology",
     "Vascular",
   ];
-  const { usertype } = useContext(Appcontext);
+  const { userType } = useContext(Appcontext);
   
 
   return (
@@ -135,7 +135,12 @@ function StackExchangeHome() {
           </Container>
         </Navbar>
       ))}
-      {usertype === "patient" ? <ReadbyPatientId /> : <ReadbyDoctorId />}
+      
+      {userType === 'doctor' ? (
+        <ReadbyDoctorId />
+      ) : (
+        <ReadbyPatientId />
+      )}
     </>
   );
 }

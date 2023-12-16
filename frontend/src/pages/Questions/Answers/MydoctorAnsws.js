@@ -5,16 +5,18 @@ import Badge from "react-bootstrap/Badge";
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 import { Appcontext } from "../../../App";
+import { useNavigate } from "react-router-dom";
 
 
 function ReadbyDoctorId() {
 
   const [mydoctoransws, setMydoctoransws] = useState([]);
   const { doctorId, setRefansid } = useContext(Appcontext);
-
+  let navigate = useNavigate();
   const handleClick = async (ansid) => {
     try {
       setRefansid(ansid);
+      navigate("/stackExchange/refQn")
     } catch (error) {
       console.error(error);
     }

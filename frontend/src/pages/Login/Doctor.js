@@ -19,6 +19,7 @@ function Doctor() {
       if (res.data.message === "success") {
         window.localStorage.setItem("doctorId", res.data.id);
         window.localStorage.setItem("userType", "doctor");
+        
         navigate("/");
       } else {
         navigate("/login-doctor");

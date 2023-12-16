@@ -6,10 +6,11 @@ import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 import { Appcontext } from "../../App";
 import ListGroup from "react-bootstrap/ListGroup";
+import { useNavigate } from "react-router-dom";
 
 
 function ReadbyPatientId() {
-
+  let navigate = useNavigate();
 
 
   const [mypatientqns, setMypatientqns] = useState([]);
@@ -18,6 +19,7 @@ function ReadbyPatientId() {
   const handleClick = async (qnid) => {
     try {
       setRefqnid(qnid);
+      navigate("/stackExchange/refAns")
     } catch (error) {
       console.error(error);
     }
@@ -77,7 +79,7 @@ function ReadbyPatientId() {
                           borderRadius: "0px",
                         }}
                       >
-                        {qns.TAG1}
+                        {qns.PRIORITY1}
                       </Badge>
                       <Badge
                         bg="dark"
@@ -86,7 +88,7 @@ function ReadbyPatientId() {
                           borderRadius: "0px",
                         }}
                       >
-                        {qns.TAG2}
+                        {qns.PRIORITY2}
                       </Badge>
                       <Badge
                         bg="dark"
@@ -95,7 +97,7 @@ function ReadbyPatientId() {
                           borderRadius: "0px",
                         }}
                       >
-                        {qns.TAG3}
+                        {qns.PRIORITY3}
                       </Badge>
                       <Badge
                         bg="dark"
@@ -104,17 +106,9 @@ function ReadbyPatientId() {
                           borderRadius: "0px",
                         }}
                       >
-                        {qns.TAG4}
+                        {qns.PRIORITY4}
                       </Badge>
-                      <Badge
-                        bg="dark"
-                        style={{
-                          fontFamily: "sans-serif",
-                          borderRadius: "0px",
-                        }}
-                      >
-                        {qns.TAG5}
-                      </Badge>
+                     
                     </Stack>
                   </Card.Text>
                   <Button

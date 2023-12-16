@@ -7,13 +7,13 @@ import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 
 function RefAnsws() {
-  const {refansid} = useContext(Appcontext);
+  const {refqnid} = useContext(Appcontext);
   const [refans, setRefans] = useState([]);
   useEffect(() => {
     const fn = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/stackExchange/pt/${refansid}`
+          `http://localhost:5000/stackExchange/pt/${refqnid}`
         );
 
         setRefans(response.data);
@@ -23,7 +23,7 @@ function RefAnsws() {
     };
 
     fn();
-  }, [refansid])
+  }, [refqnid])
 
   return (
     <>

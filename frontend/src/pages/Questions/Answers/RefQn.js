@@ -1,5 +1,5 @@
 import React, { useEffect, useState ,useContext} from "react";
-import { Appcontext } from "../../App";
+import { Appcontext } from "../../../App";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
@@ -7,13 +7,15 @@ import Stack from "react-bootstrap/Stack";
 import ListGroup from "react-bootstrap/ListGroup";
 
 function RefQn() {
-  const {refqnid} = useContext(Appcontext);
+  const {refansid} = useContext(Appcontext);
   const [refqns, setRefqns] = useState([]);
+
+
   useEffect(() => {
     const fn = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/stackExchange/pt/${refqnid}`
+          `http://localhost:5000/stackExchange/dr/${refansid}`
         );
 
         setRefqns(response.data);
@@ -23,7 +25,8 @@ function RefQn() {
     };
 
     fn();
-  }, [refqnid]);
+  }, [refansid]);
+
   return (
     <>
     <Card style={{ width: "90rem", margin: "10px 2px 10px 2px" }}>

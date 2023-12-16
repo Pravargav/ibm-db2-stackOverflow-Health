@@ -700,7 +700,7 @@ app.get("/stackExchange/p/:patientId", (req, res) => {
         res.json({ error: "Database query error" });
       } else {
         if (data && data.length > 0) {
-          console.log(data);
+        
           res.json(data);
         } else {
           res.json({ error: "Not found" });
@@ -767,6 +767,7 @@ app.get("/stackExchange/dr/:answerid", (req, res) => {
         res.json({ error: "Database query error" });
       } else {
         if (data && data.length > 0) {
+          console.log(data);
           res.json(data);
         } else {
           res.json({ error: "Not found" });

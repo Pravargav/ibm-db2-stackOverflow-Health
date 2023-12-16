@@ -13,7 +13,7 @@ import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const { patientid, usertype,doctorid } = useContext(Appcontext);
+  const { patientId, userType,doctorId } = useContext(Appcontext);
   let navigate = useNavigate();
   const handleClick = async (event) => {
     event.preventDefault();
@@ -30,27 +30,27 @@ function Home() {
       {[false].map((expand) => (
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
           <Container fluid>
-            {usertype === "patient" ? (
+            {userType === "patient" ? (
               <NavLink to="/patientProfile">
                 <Button
                   variant="secondary"
                   size="lg"
                   style={{ fontFamily: "sans-serif" }}
                 >
-                  {patientid}
+                  {patientId}
                 </Button>
               </NavLink>
             ) : (
-              usertype === "doctor"?(
+              userType === "doctor"?(
               <NavLink to="/doctorProfile">
                 <Button
                   variant="secondary"
                   size="lg"
                   style={{ fontFamily: "sans-serif" }}
                 >
-                  {doctorid}
+                  {doctorId}
                 </Button>
-              </NavLink>):(<NavLink to="/doctorProfile">
+              </NavLink>):(<NavLink to="/patientProfile">
                 <Button
                   variant="secondary"
                   size="lg"

@@ -13,7 +13,7 @@ function Doctorprofile() {
 
   const func = () => {
     window.localStorage.setItem("doctorId", "myProfileId");
-    window.localStorage.setItem("userType", "userType");
+    window.localStorage.setItem("userType", "userTypex");
     navigate("/");
   };
   useEffect(() => {

@@ -15,6 +15,8 @@ import { useGetDoctorId } from "./Iddoctor";
 import { useGetPatientId } from "./Idpatient";
 import { useGetUserType } from "./userType";
 import { useGetUserMail } from "./userMail";
+import RefQn from "./pages/Questions/Answers/RefQn";
+import RefAnsws from "./pages/Questions/RefAnsws";
 
 export const Appcontext = createContext();
 
@@ -54,6 +56,8 @@ function App() {
             <Route path="/patientProfile" element={<Patientprofile />} />
             <Route path="/doctorProfile" element={<Doctorprofile />} />
             <Route path="/stackExchange" element={<StackExchangeHome />} />
+            <Route path="/stackExchange/refQn" element={<RefQn />} />
+            <Route path="/stackExchange/refAns" element={<RefAnsws />} />
           </Routes>
         </BrowserRouter>
       </Appcontext.Provider>
