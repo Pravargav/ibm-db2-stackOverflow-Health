@@ -8,12 +8,10 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useContext } from "react";
 import { Appcontext } from "../App";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const { patientId, userType,doctorId } = useContext(Appcontext);
+  const { patientId, userType, doctorId } = useContext(Appcontext);
   let navigate = useNavigate();
   const handleClick = async (event) => {
     event.preventDefault();
@@ -24,7 +22,6 @@ function Home() {
     }
   };
 
-  
   return (
     <>
       {[false].map((expand) => (
@@ -40,8 +37,7 @@ function Home() {
                   {patientId}
                 </Button>
               </NavLink>
-            ) : (
-              userType === "doctor"?(
+            ) : userType === "doctor" ? (
               <NavLink to="/doctorProfile">
                 <Button
                   variant="secondary"
@@ -50,7 +46,9 @@ function Home() {
                 >
                   {doctorId}
                 </Button>
-              </NavLink>):(<NavLink to="/patientProfile">
+              </NavLink>
+            ) : (
+              <NavLink to="/patientProfile">
                 <Button
                   variant="secondary"
                   size="lg"
@@ -58,7 +56,7 @@ function Home() {
                 >
                   myProfile
                 </Button>
-              </NavLink>)
+              </NavLink>
             )}
 
             <Navbar.Brand
@@ -155,32 +153,7 @@ function Home() {
           </Container>
         </Navbar>
       ))}
-      <Row>
-        <Col>
-          <Card style={{ width: "34rem", margin: "20px" }}>
-            <Card.Header as="h5" style={{ fontFamily: "sans-serif" }}>
-              Appointments and Reports Page
-            </Card.Header>
-            <Card.Body>
-              <Card.Text style={{ fontFamily: "sans-serif" }}>
-                An appointment scheduling app is a powerful tool designed to
-                streamline and simplify the process of booking and managing
-                appointments for both businesses and individuals. In today's
-                fast-paced world, where time is of the essence, such
-                applications have become indispensable for optimizing
-                productivity and enhancing customer satisfaction.
-              </Card.Text>
-              <Button
-                variant="dark"
-                size="lg"
-                style={{ fontFamily: "sans-serif" }}
-              >
-                Appointments & Reports
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
+      
           <Card style={{ width: "34rem", margin: "20px" }}>
             <Card.Header as="h5" style={{ fontFamily: "sans-serif" }}>
               StackExchange Page
@@ -204,8 +177,7 @@ function Home() {
               </Button>
             </Card.Body>
           </Card>
-        </Col>
-      </Row>
+       
     </>
   );
 }
