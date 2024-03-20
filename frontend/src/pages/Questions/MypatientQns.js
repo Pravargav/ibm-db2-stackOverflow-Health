@@ -12,14 +12,23 @@ import { useNavigate } from "react-router-dom";
 function ReadbyPatientId() {
   let navigate = useNavigate();
 
-
+ 
   const [mypatientqns, setMypatientqns] = useState([]);
   const { patientId, setRefqnid } = useContext(Appcontext);
 
   const handleClick = async (qnid) => {
     try {
       setRefqnid(qnid);
-      navigate("/stackExchange/refAns")
+      navigate("/patientStack/refAnsws")
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleClick2 = async (qnid) => {
+    try {
+      setRefqnid(qnid);
+      navigate("/patientStack/editQn")
     } catch (error) {
       console.error(error);
     }
@@ -57,13 +66,23 @@ function ReadbyPatientId() {
                   style={{ fontFamily: "sans-serif" }}
                 >
                   Featured
+                  <div>
+                  <Button
+                    variant="secondary"
+                    type="submit"
+                    style={{ fontFamily: "sans-serif" }}
+                    onClick={() => handleClick2(qns.QUESTIONID)}
+                  >
+                    Edit
+                  </Button>
                   <Button
                     variant="secondary"
                     type="submit"
                     style={{ fontFamily: "sans-serif" }}
                   >
-                    Edit
+                    Delete
                   </Button>
+                  </div>
                 </Card.Header>
                 <Card.Body>
                   <Card.Title style={{ fontFamily: "sans-serif" }}>

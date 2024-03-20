@@ -13,7 +13,6 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 
-
 app.post("/signup-patient", async (req, res) => {
   ibm_db.open(connStr, (err, conn) => {
     if (err) {
@@ -304,7 +303,6 @@ app.get("/patientProfile/:patientId", (req, res) => {
   });
 });
 
-
 //-------------------my profile-----------------
 app.get("/:doctorId", (req, res) => {
   const doctorId = req.params.doctorId;
@@ -372,10 +370,9 @@ app.get("/:patientId", (req, res) => {
   });
 });
 
-//-----------------oth profiles list--------------
 
 
-//---------------------QnA my personal----------------------------------
+//---------------------QnA----------------------------------
 
 app.get("/stackExchange/d/:doctorId", (req, res) => {
   const doctorId = req.params.doctorId;
@@ -430,7 +427,6 @@ app.get("/stackExchange/p/:patientId", (req, res) => {
         res.json({ error: "Database query error" });
       } else {
         if (data && data.length > 0) {
-        
           res.json(data);
         } else {
           res.json({ error: "Not found" });
@@ -514,5 +510,207 @@ app.get("/stackExchange/dr/:answerid", (req, res) => {
 });
 
 //----------------------------------------------------------------------//
+//Query
+
+app.get("/stackExchange/query/Qns", (req, res) => {
+  const val1 = req.body.val1;
+  const val2 = req.body.val2;
+  const val3 = req.body.val3;
+  const val4 = req.body.val4;
+
+  ibm_db.open(connStr, (err, conn) => {
+    if (err) {
+      console.error("Error connecting to the database:", err);
+      res.json({ error: "Database connection error" });
+      return;
+    }
+
+    const query = `SELECT *
+    FROM question
+    WHERE val1 = ?
+      AND val2 = ?
+      AND val3 = ?
+      AND val4 = ?;
+    `;
+
+    conn.query(query, [val1, val2, val3, val4], (err, data) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        res.json({ error: "Database query error" });
+      } else {
+        if (data && data.length > 0) {
+          console.log(data);
+          res.json(data);
+        } else {
+          res.json({ error: "Not found" });
+        }
+      }
+
+      conn.close((closeErr) => {
+        if (closeErr) {
+          console.error("Error closing the database connection:", closeErr);
+        }
+      });
+    });
+  });
+});
+
+app.get("/stackExchange/query/Qns/:questionid", (req, res) => {
+  const questionId = req.params.questionid;
+
+  ibm_db.open(connStr, (err, conn) => {
+    if (err) {
+      console.error("Error connecting to the database:", err);
+      res.json({ error: "Database connection error" });
+      return;
+    }
+
+    const query = `SELECT * FROM answer WHERE questionid = ?`;
+
+    conn.query(query, [questionId], (err, data) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        res.json({ error: "Database query error" });
+      } else {
+        if (data && data.length > 0) {
+          res.json(data);
+        } else {
+          res.json({ error: "Not found" });
+        }
+      }
+
+      conn.close((closeErr) => {
+        if (closeErr) {
+          console.error("Error closing the database connection:", closeErr);
+        }
+      });
+    });
+  });
+});
+//----------------------------------------------------------------------//
+//Edit
+
+app.put("/stackExchange/edit/Ans/", (req, res) => {
+  const answerId = req.body.refansid;
+  const editText = req.body.editText;
+
+  ibm_db.open(connStr, (err, conn) => {
+    if (err) {
+      console.error("Error connecting to the database:", err);
+      res.json({ error: "Database connection error" });
+      return;
+    }
+
+    const query = `UPDATE  SET column1 = ?, column2 = ? WHERE condition_column = ?`;
+
+    conn.query(query, [answerId,editText], (err, data) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        res.json({ error: "Database query error" });
+      } else {
+        res.json({ message: "successEdit" });
+      }
+
+      conn.close((closeErr) => {
+        if (closeErr) {
+          console.error("Error closing the database connection:", closeErr);
+        }
+      });
+    });
+  });
+});
+
+app.put("/stackExchange/edit/Qns/", (req, res) => {
+  const questionId = req.body.questionid;
+
+  ibm_db.open(connStr, (err, conn) => {
+    if (err) {
+      console.error("Error connecting to the database:", err);
+      res.json({ error: "Database connection error" });
+      return;
+    }
+
+    const query = `UPDATE your_table_name SET column1 = ?, column2 = ? WHERE condition_column = ?`;
+
+    conn.query(query, [questionId], (err, data) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        res.json({ error: "Database query error" });
+      } else {
+        res.json({ message: "successedit" });
+      }
+
+      conn.close((closeErr) => {
+        if (closeErr) {
+          console.error("Error closing the database connection:", closeErr);
+        }
+      });
+    });
+  });
+});
+
+//----------------------------------------------------------------------//
+//Add
+
+app.post("/stackExchange/add/Ans/", (req, res) => {
+  const newanswerId = req.body.refansid;
+  const editText = req.body.editText;
+
+  ibm_db.open(connStr, (err, conn) => {
+    if (err) {
+      console.error("Error connecting to the database:", err);
+      res.json({ error: "Database connection error" });
+      return;
+    }
+
+    const query = `UPDATE  SET column1 = ?, column2 = ? WHERE condition_column = ?`;
+
+    conn.query(query, [newanswerId,editText], (err, data) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        res.json({ error: "Database query error" });
+      } else {
+        res.json({ message: "successEdit" });
+      }
+
+      conn.close((closeErr) => {
+        if (closeErr) {
+          console.error("Error closing the database connection:", closeErr);
+        }
+      });
+    });
+  });
+});
+
+app.post("/stackExchange/add/Qns/", (req, res) => {
+  const newquestionId = req.body.questionid;
+
+  ibm_db.open(connStr, (err, conn) => {
+    if (err) {
+      console.error("Error connecting to the database:", err);
+      res.json({ error: "Database connection error" });
+      return;
+    }
+
+    const query = `UPDATE your_table_name SET column1 = ?, column2 = ? WHERE condition_column = ?`;
+
+    conn.query(query, [newquestionId], (err, data) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        res.json({ error: "Database query error" });
+      } else {
+        res.json({ message: "successedit" });
+      }
+
+      conn.close((closeErr) => {
+        if (closeErr) {
+          console.error("Error closing the database connection:", closeErr);
+        }
+      });
+    });
+  });
+});
+//----------------------------------------------------------------------//
+
 
 app.listen(5000, () => console.log("Server started!!"));

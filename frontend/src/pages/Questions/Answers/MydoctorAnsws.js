@@ -11,12 +11,21 @@ import { useNavigate } from "react-router-dom";
 function ReadbyDoctorId() {
 
   const [mydoctoransws, setMydoctoransws] = useState([]);
-  const { doctorId, setRefansid } = useContext(Appcontext);
+  const { doctorId, setRefansid,setAnsText } = useContext(Appcontext);
   let navigate = useNavigate();
   const handleClick = async (ansid) => {
     try {
       setRefansid(ansid);
-      navigate("/stackExchange/refQn")
+      navigate("/doctorStack/refQn")
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleClick2 = async (ansid,ansText) => {
+    try {
+      setRefansid(ansid);
+      setAnsText(ansText);
+      navigate("/doctorStack/editAns")
     } catch (error) {
       console.error(error);
     }
@@ -88,13 +97,23 @@ function ReadbyDoctorId() {
                         dislikes
                       </span>
                     </Button>
+                    
+                    <Button
+                      variant="secondary"
+                      type="submit"
+                      style={{ fontFamily: "sans-serif", margin: "5px" }}
+                      onClick={() => handleClick2(ans.ANSWERID,ans.TEXT)}
+                    >
+                      Edit
+                    </Button>
                     <Button
                       variant="secondary"
                       type="submit"
                       style={{ fontFamily: "sans-serif", margin: "5px" }}
                     >
-                      Edit
+                      Delete
                     </Button>
+                    
                     <Button
                       size="lg"
                       variant="secondary"

@@ -6,14 +6,135 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Appcontext } from "../App";
 import { useNavigate } from "react-router-dom";
-
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import ListGroup from "react-bootstrap/ListGroup";
+import Badge from "react-bootstrap/Badge";
+import Axios from "axios";
+import Stack from "react-bootstrap/Stack";
 function Home() {
-  const { patientId, userType, doctorId } = useContext(Appcontext);
   let navigate = useNavigate();
-  const handleClick = async (event) => {
+
+  const fields = [
+    "Allergist",
+    "Allergy",
+    "Anesthesiology",
+    "Cardiologist",
+    "Cardiology",
+    "Dermatologist",
+    "Dermatology",
+    "Emergency",
+    "Endocrinology",
+    "Family",
+    "Gastroenterologist",
+    "Gastroenterology",
+    "Genetics",
+    "Geriatrics",
+    "Hematologist",
+    "Hematology",
+    "Infectious",
+    "Internist",
+    "Medical",
+    "Medicine",
+    "Nephrologist",
+    "Nephrology",
+    "Neurologist",
+    "Neurology",
+    "Neurosurgeon",
+    "Neurosurgery",
+    "Obstetrics",
+    "Oncologist",
+    "Oncology",
+    "Ophthalmologist",
+    "Ophthalmology",
+    "Orthopedics",
+    "Otolaryngology",
+    "Pain",
+    "Pathologist",
+    "Pathology",
+    "Pediatrician",
+    "Pediatrics",
+    "Physician",
+    "Plastic",
+    "Psychiatry",
+    "Pulmonology",
+    "Radiology",
+    "Rehabilitation",
+    "Rheumatology",
+    "Specialist",
+    "Surgeon",
+    "Surgery",
+    "Thoracic",
+    "Urology",
+    "Vascular",
+  ];
+
+  const [val1, setVal1] = useState("");
+  const [val2, setVal2] = useState("");
+  const [val3, setVal3] = useState("");
+  const [val4, setVal4] = useState("");
+  const [qns, setQns] = useState([]);
+
+  const { setRefqueryid } = useContext(Appcontext);
+
+  const handleClick = async (qnid) => {
+    try {
+      setRefqueryid(qnid);
+      navigate("/stackExchangeQuery/refAns");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const res = await Axios.post(
+        "http://localhost:5000/stackExchange/query/Qns",
+        {
+          val1,
+          val2,
+          val3,
+          val4,
+        }
+      );
+
+      setQns(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const fn = async () => {
+      try {
+        console.log(qns);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fn();
+  }, [qns]);
+  const { patientId, userType, doctorId } = useContext(Appcontext);
+
+  const handleClick1 = async (event) => {
+    event.preventDefault();
+    try {
+      if (userType === "doctor") {
+        navigate("/doctorStack");
+      } else {
+        navigate("/patientStack");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleClick2 = async (event) => {
     event.preventDefault();
     try {
       navigate("/stackExchange");
@@ -68,9 +189,9 @@ function Home() {
                 fontFamily: "sans-serif",
               }}
             >
-              HealthConnect: Streamlined Doctors Appointment And Health Record
-              Management-
+              Health stack Exchange
             </Navbar.Brand>
+
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
@@ -87,7 +208,7 @@ function Home() {
                         padding: "10px 10px 10px 90px",
                       }}
                     >
-                      Login??
+                      Login
                     </h1>
 
                     <NavLink to="/login-admin">
@@ -125,7 +246,7 @@ function Home() {
                         padding: "10px 10px 10px 90px",
                       }}
                     >
-                      SignUp??
+                      SignUp
                     </h1>
 
                     <NavLink to="/signup-doctor">
@@ -153,31 +274,202 @@ function Home() {
           </Container>
         </Navbar>
       ))}
-      
-          <Card style={{ width: "34rem", margin: "20px" }}>
-            <Card.Header as="h5" style={{ fontFamily: "sans-serif" }}>
-              StackExchange Page
-            </Card.Header>
-            <Card.Body>
-              <Card.Text style={{ fontFamily: "sans-serif" }}>
-                As of my last knowledge update in September 2021, Stack Exchange
-                did not have an official mobile app. However, it's worth noting
-                that Stack Exchange, which includes popular Q&A communities like
-                Stack Overflow, Super User, Ask Ubuntu, and others, had a
-                well-optimized mobile website that allowed users to access the
-                platform on their mobile devices.
-              </Card.Text>
-              <Button
-                variant="dark"
-                size="lg"
-                style={{ fontFamily: "sans-serif" }}
-                onClick={handleClick}
-              >
-                Health StackExchange QnA
-              </Button>
-            </Card.Body>
-          </Card>
-       
+      {[false].map((expand) => (
+        <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
+          <Container fluid>
+            <div>
+              {" "}
+              <NavLink to="">
+                <Button
+                  variant="dark"
+                  size="lg"
+                  style={{ fontFamily: "sans-serif" }}
+                  onClick={handleClick1}
+                >
+                  MyQna
+                </Button>
+              </NavLink>
+              <NavLink to="">
+                <Button
+                  variant="dark"
+                  size="lg"
+                  style={{ fontFamily: "sans-serif" }}
+                  onClick={handleClick2}
+                >
+                  Question+
+                </Button>
+              </NavLink>
+            </div>
+
+            <Navbar.Brand
+              href="#"
+              style={{
+                fontSize: "27px",
+                fontWeight: "bold",
+                textDecoration: "underline",
+                fontFamily: "sans-serif",
+              }}
+            ></Navbar.Brand>
+
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+
+            <Navbar.Offcanvas
+              id={`offcanvasNavbar-expand-${expand}`}
+              aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+              placement="top"
+              style={{ maxHeight: "120px" }}
+            >
+              <Offcanvas.Body style={{ overflowY: "hidden" }}>
+                <Form onSubmit={handleSubmit}>
+                  <Row className="mb-3">
+                    <Form.Group as={Col} controlId="formGridState">
+                      <Form.Label>priority1</Form.Label>
+                      <Form.Select
+                        aria-label="Default select example"
+                        onChange={(e) => setVal1(e.target.value)}
+                      >
+                        {fields.map((element, index) => (
+                          <option key={index} value={element}>
+                            {element}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGridState">
+                      <Form.Label>priority2</Form.Label>
+                      <Form.Select
+                        aria-label="Default select example"
+                        onChange={(e) => setVal2(e.target.value)}
+                      >
+                        {fields.map((element, index) => (
+                          <option key={index} value={element}>
+                            {element}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGridState">
+                      <Form.Label>priority3</Form.Label>
+                      <Form.Select
+                        aria-label="Default select example"
+                        onChange={(e) => setVal3(e.target.value)}
+                      >
+                        {fields.map((element, index) => (
+                          <option key={index} value={element}>
+                            {element}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGridState">
+                      <Form.Label>priority4</Form.Label>
+                      <Form.Select
+                        aria-label="Default select example"
+                        onChange={(e) => setVal4(e.target.value)}
+                      >
+                        {fields.map((element, index) => (
+                          <option key={index} value={element}>
+                            {element}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Form.Group>
+                    <Button
+                      variant="dark"
+                      type="submit"
+                      size="lg"
+                      style={{ margin: "10px" }}
+                      as={Col}
+                    >
+                      Search
+                    </Button>
+                  </Row>
+                </Form>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
+          </Container>
+        </Navbar>
+      ))}
+
+      <Card style={{ width: "90rem", margin: "10px 2px 10px 2px" }}>
+        {qns.map((qns) => (
+          <ListGroup className="list-group-flush" key={qns.QUESTIONID}>
+            <ListGroup.Item>
+              {" "}
+              <Card style={{ borderRadius: "0" }}>
+                <Card.Header
+                  as="h5"
+                  className="d-flex justify-content-between align-items-center"
+                  style={{ fontFamily: "sans-serif" }}
+                >
+                  Featured
+                  <Button
+                    variant="secondary"
+                    type="submit"
+                    style={{ fontFamily: "sans-serif" }}
+                  >
+                    Answer+
+                  </Button>
+                </Card.Header>
+                <Card.Body>
+                  <Card.Title style={{ fontFamily: "sans-serif" }}>
+                    Special title treatment
+                  </Card.Title>
+                  <Card.Text style={{ fontFamily: "sans-serif" }}>
+                    {qns.TEXT}
+                    <Stack direction="horizontal" gap={2}>
+                      <Badge
+                        bg="dark"
+                        style={{
+                          fontFamily: "sans-serif",
+                          borderRadius: "0px",
+                        }}
+                      >
+                        {qns.PRIORITY1}
+                      </Badge>
+                      <Badge
+                        bg="dark"
+                        style={{
+                          fontFamily: "sans-serif",
+                          borderRadius: "0px",
+                        }}
+                      >
+                        {qns.PRIORITY2}
+                      </Badge>
+                      <Badge
+                        bg="dark"
+                        style={{
+                          fontFamily: "sans-serif",
+                          borderRadius: "0px",
+                        }}
+                      >
+                        {qns.PRIORITY3}
+                      </Badge>
+                      <Badge
+                        bg="dark"
+                        style={{
+                          fontFamily: "sans-serif",
+                          borderRadius: "0px",
+                        }}
+                      >
+                        {qns.PRIORITY4}
+                      </Badge>
+                    </Stack>
+                  </Card.Text>
+                  <Button
+                    variant="secondary"
+                    type="submit"
+                    style={{ fontFamily: "sans-serif" }}
+                    onClick={() => handleClick(qns.QUESTIONID)}
+                  >
+                    Go to Answers
+                  </Button>
+                </Card.Body>
+              </Card>
+            </ListGroup.Item>
+          </ListGroup>
+        ))}
+      </Card>
     </>
   );
 }
