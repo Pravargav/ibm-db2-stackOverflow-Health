@@ -274,6 +274,7 @@ function Home() {
           </Container>
         </Navbar>
       ))}
+      
       {[false].map((expand) => (
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
           <Container fluid>
