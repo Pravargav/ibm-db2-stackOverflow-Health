@@ -21,7 +21,7 @@ import mysql from "mysql"
 const connection = mysql.createConnection({
     host: 'localhost',     // host for connection
     port: 3306,            // default port for mysql is 3306
-    database: 'ibmdb2',      // database from which we want to connect our node application
+    database: 'ibmdb2',      
     user: 'root',          // username of the mysql connection
     password: 'lielife24'    ,
     insecureAuth:true   // password of the mysql connection
@@ -32,8 +32,8 @@ connection.connect(function(err) {
     if (err) {
         console.log(err);
     } else {
-        console.log("connection created with mysql successfully");
+        console.log("connected successfully!!");
     }
 });
-//===========================================================================>
+
 
